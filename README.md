@@ -39,10 +39,7 @@ last of Us imdb!
 
 ```bash
 $ ./extract_just_bangs_searches.py ~/tmp/places.sqlite --omit-bangs --lowercase | sort | uniq -c | sort -r | less
-```
 
-```
-10 wikipedia
-4 last of us w
-2 last of us imdb
+2 last of us
+1 wikipedia
 ```
