@@ -17,6 +17,10 @@ def main():
         "--omit-bangs", action="store_true",
         help="Omit trailing bangs (!) from search terms."
     )
+    parser.add_argument(
+        "--lowercase", action="store_true",
+        help="Force output to lowercase."
+    )
     args = parser.parse_args()
 
     # print each extracted search term from querystring
@@ -35,6 +39,8 @@ def main():
                     tokens = term.split()
                     tokens = [t for t in tokens if '!' not in t]
                     term = ' '.join(tokens)
+                if args.lowercase:
+                    term = term.lower()
                 print(term)
     except sqlite3.Error as e:
         print(f"SQLite error: {e}", file=sys.stderr)
