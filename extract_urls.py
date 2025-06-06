@@ -31,11 +31,10 @@ def main():
             params = urllib.parse.parse_qs(parsed.query)
             term = params.get('q', [None])[0]
             if term:
-                if args.omit_bangs:
+                if args.omit-bangs:
                     tokens = term.split()
-                    if tokens and tokens[-1].endswith('!'):
-                        tokens = tokens[:-1]
-                        term = ' '.join(tokens)
+                    tokens = [t for t in tokens if '!' not in t]
+                    term = ' '.join(tokens)
                 print(term)
     except sqlite3.Error as e:
         print(f"SQLite error: {e}", file=sys.stderr)
