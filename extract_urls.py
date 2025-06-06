@@ -14,12 +14,12 @@ def main():
     )
     args = parser.parse_args()
 
-    print("Search phrase: https://bangs.trisrtanhavelick.com/")
+    print("Search phrase: https://bangs.tristanhavelick.com/")
 
     try:
         conn = sqlite3.connect(args.db_path)
         cursor = conn.cursor()
-        sql = "SELECT datetime(last_visit_date/1000000, 'unixepoch') AS visit_date, url FROM moz_places WHERE url LIKE 'https://bangs.trisrtanhavelick.com/%' ORDER BY last_visit_date DESC;"
+        sql = "SELECT datetime(last_visit_date/1000000, 'unixepoch') AS visit_date, url FROM moz_places WHERE url LIKE 'https://bangs.tristanhavelick.com/%' ORDER BY last_visit_date DESC;"
         cursor.execute(sql)
         for visit_date, url in cursor.fetchall():
             print(f"{visit_date}\t{url}")
