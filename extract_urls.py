@@ -13,6 +13,10 @@ def main():
     parser.add_argument(
         "db_path", help="Path to the Firefox places.sqlite database file."
     )
+    parser.add_argument(
+        "--omit-bangs", action="store_true",
+        help="Omit trailing bangs (!) from search terms."
+    )
     args = parser.parse_args()
 
     # print each extracted search term from querystring
@@ -27,6 +31,11 @@ def main():
             params = urllib.parse.parse_qs(parsed.query)
             term = params.get('q', [None])[0]
             if term:
+                if args.omit_bangs:
+                    tokens = term.split()
+                    if tokens and tokens[-1].endswith('!'):
+                        tokens = tokens[:-1]
+                        term = ' '.join(tokens)
                 print(term)
     except sqlite3.Error as e:
         print(f"SQLite error: {e}", file=sys.stderr)
