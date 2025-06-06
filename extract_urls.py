@@ -4,6 +4,7 @@
 import argparse
 import sqlite3
 import sys
+import urllib.parse
 
 def main():
     parser = argparse.ArgumentParser(
@@ -14,15 +15,19 @@ def main():
     )
     args = parser.parse_args()
 
-    print("Search phrase: https://bangs.tristanhavelick.com/")
+    # print each extracted search term from querystring
 
     try:
         conn = sqlite3.connect(args.db_path)
         cursor = conn.cursor()
-        sql = "SELECT datetime(last_visit_date/1000000, 'unixepoch') AS visit_date, url FROM moz_places WHERE url LIKE 'https://bangs.tristanhavelick.com/%' ORDER BY last_visit_date DESC;"
+        sql = "SELECT url FROM moz_places WHERE url LIKE 'https://bangs.tristanhavelick.com/%' ORDER BY last_visit_date DESC;"
         cursor.execute(sql)
-        for visit_date, url in cursor.fetchall():
-            print(f"{visit_date}\t{url}")
+        for (url,) in cursor.fetchall():
+            parsed = urllib.parse.urlparse(url)
+            params = urllib.parse.parse_qs(parsed.query)
+            term = params.get('q', [None])[0]
+            if term:
+                print(term)
     except sqlite3.Error as e:
         print(f"SQLite error: {e}", file=sys.stderr)
         sys.exit(1)
