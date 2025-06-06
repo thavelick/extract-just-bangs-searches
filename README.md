@@ -31,18 +31,13 @@ You can usually find your Firefox `places.sqlite` database in your profile direc
 $ ./extract_just_bangs_searches.py ~/tmp/places.sqlite
 ```
 ```
-crazy cat lady!
-david simon w!
-last of us melb!
+wikipedia
+last of us w!
+last of Us imdb!
 ```
 
-### Advanced
+### Advanced Example
 
 ```bash
 $ ./extract_just_bangs_searches.py ~/tmp/places.sqlite --omit-bangs --lowercase | sort | uniq -c | sort -r | less
-```
-```
-12 crazy cat lady
-8 david simon w
-3 last of us melb
 ```
