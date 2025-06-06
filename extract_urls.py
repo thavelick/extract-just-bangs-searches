@@ -31,7 +31,7 @@ def main():
             params = urllib.parse.parse_qs(parsed.query)
             term = params.get('q', [None])[0]
             if term:
-                if args.omit-bangs:
+                if args.omit_bangs:
                     tokens = term.split()
                     tokens = [t for t in tokens if '!' not in t]
                     term = ' '.join(tokens)
