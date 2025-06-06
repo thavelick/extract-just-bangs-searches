@@ -29,8 +29,7 @@ You can usually find your Firefox `places.sqlite` database in your profile direc
 
 ```bash
 $ ./extract_just_bangs_searches.py ~/tmp/places.sqlite
-```
-```
+
 wikipedia
 last of us w!
 last of Us imdb!
